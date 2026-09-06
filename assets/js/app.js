@@ -10,6 +10,12 @@ const APPS = {
   page:  { title:'页面',      icon:'📄', kind:'page' },
 };
 
+const TABLE_DATA = {
+  gift: [
+    { date: '8月', text: '舰长礼物：动态壁纸 + 电台音声\n提督礼物：舰长礼物 + To签色纸' },
+  ],
+};
+
 const windowsRoot = document.getElementById('windows');
 const dockRoot = document.getElementById('dock');
 
@@ -77,6 +83,7 @@ function createWindow(appKey, opts = {}){
   if(appKey === 'finder') initFinder(el, opts.path);
   if(appKey === 'schedule') initSchedule(el);
   if(appKey === 'page') initPage(el, opts);
+  if(appKey === 'table') initTable(el, opts.data);
 
   el.addEventListener('mousedown', () => focus(el));
 
@@ -175,6 +182,15 @@ function initChat(el){
   send.addEventListener('click', sendMsg);
   text.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); sendMsg(); } });
   refresh();
+}
+
+function initTable(el, dataKey){
+  const tbody = el.querySelector('tbody');
+  const empty = el.querySelector('.tbl-empty');
+  if(!tbody) return;
+  const rows = TABLE_DATA[dataKey] || [];
+  tbody.innerHTML = rows.map(r => `<tr><td>${esc(r.date)}</td><td>${esc(r.text)}</td></tr>`).join('');
+  if(empty) empty.hidden = rows.length > 0;
 }
 
 function initFinder(el, start){
@@ -813,7 +829,7 @@ function openFinderAt(path){
     else if(act === 'game')       createWindow('table', { title:'游戏回记录' });
     else if(act === 'chirp')      createWindow('table', { title:'啾言集' });
     else if(act === 'week')       openFinderAt('week');
-    else if(act === 'gift')       createWindow('table', { title:'舰礼记录' });
+    else if(act === 'gift')       createWindow('table', { title:'舰礼记录', data:'gift' });
   }));
   document.addEventListener('click', () => f.classList.remove('open'));
 })();
