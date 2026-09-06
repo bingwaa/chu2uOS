@@ -164,7 +164,7 @@ function initChat(el){
       body: JSON.stringify({ text: text.value.trim() }),
     }).then(r => r.json().then(j => ({ s: r.status, j })))
       .then(({ s, j }) => { if(s === 200 && j && j.ok){ text.value = ''; setRemain(j.left); refresh(); } else notice((j && j.msg) || '发送失败'); })
-      .catch(() => notice('网络错误，需通过 node assets/js/server.js 访问'));
+      .catch(() => notice('网络错误，请稍后重试'));
   }
   send.addEventListener('click', sendMsg);
   text.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); sendMsg(); } });
