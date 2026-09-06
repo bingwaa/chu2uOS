@@ -5,6 +5,7 @@ const APPS = {
   term:  { title:'终端',      icon:'⌨️', kind:'terminal' },
   finder:{ title:'访达',      icon:'📁', kind:'finder' },
   table: { title:'记录',      icon:'📊', kind:'table' },
+  songlist:{ title:'官方歌单', icon:'🎵', link:'https://chu2u.songlist.cc' },
   schedule:{ title:'日程',    icon:'📅', kind:'schedule' },
   page:  { title:'页面',      icon:'📄', kind:'page' },
 };
@@ -418,7 +419,11 @@ function addDockIcon(appKey){
   } else {
     dockRoot.insertBefore(d, dockRoot.querySelector('.sep') || null);
   }
-  d.addEventListener('click', () => dockClick(appKey));
+  d.addEventListener('click', () => {
+    const a = APPS[appKey];
+    if(a.link){ window.open(a.link, '_blank'); return; }
+    dockClick(appKey);
+  });
 }
 function dockClick(appKey){
   const entries = [...openWindows.entries()].filter(([id,rec])=>rec.app && rec.app.title === APPS[appKey].title);
@@ -713,7 +718,7 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
   });
 })();
 
-['finder','notes','viewer','term'].forEach(addDockIcon);
+['finder','notes','viewer','term','songlist'].forEach(addDockIcon);
 
 (function(){
   const el = document.getElementById('live');
