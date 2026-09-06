@@ -671,7 +671,10 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
       cur = base.includes('happi.webp') ? 'happi.webp' : base[0];
       sp.hidden = false;
       setImg(cur);
-      preload(base);
+      const idle = window.requestIdleCallback
+        ? cb => requestIdleCallback(cb, { timeout: 2000 })
+        : cb => setTimeout(cb, 800);
+      idle(() => preload(base));
     })
     .catch(() => { sp.hidden = true; });
   function isEmpty(){
