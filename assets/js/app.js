@@ -735,7 +735,7 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
     el.classList.remove('live','off','unknown');
     el.classList.add(kind);
     dot.className = 'live-dot ' + kind;
-    txt.textContent = kind === 'live' ? 'LIVE' : kind === 'off' ? '未开播' : '检测中';
+    txt.textContent = kind === 'live' ? '直播中' : kind === 'off' ? '未开播' : '检测中';
   }
   function parse(json){
     const ls = (json && json.data && json.data.live_status) != null ? json.data.live_status : (json && json.live_status);
