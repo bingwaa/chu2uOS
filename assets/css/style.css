@@ -285,3 +285,4 @@
   }
   #splash img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;opacity:0;transition:opacity .35s ease;}
   #splash img.show{opacity:1;}
+  .splash-load{position:absolute;top:10px;left:50%;transform:translateX(-50%);color:var(--ink-soft);font-size:13px;font-weight:600;letter-spacing:.5px;background:rgba(255,255,255,.55);padding:3px 12px;border-radius:12px;}

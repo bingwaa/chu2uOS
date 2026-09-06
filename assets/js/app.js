@@ -652,12 +652,25 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
   const sp = document.getElementById('splash');
   if(!sp) return;
   const img = document.getElementById('splashImg');
+  const loadEl = document.getElementById('splashLoad');
   const FADE = 350;
   let base = [];
   let cur = '';
   function setImg(name){
     img.src = 'assets/imgs/top/' + name;
     requestAnimationFrame(() => img.classList.add('show'));
+  }
+  function preload(files){
+    if(!loadEl || !files.length) return;
+    loadEl.hidden = false;
+    let done = 0;
+    files.forEach(name => {
+      const im = new Image();
+      const finish = () => { done++; loadEl.textContent = '正在加载 top 图 ' + done + '/' + files.length; if(done >= files.length) loadEl.hidden = true; };
+      im.onload = finish;
+      im.onerror = finish;
+      im.src = 'assets/imgs/top/' + name;
+    });
   }
   fetch('assets/imgs.json', { cache:'no-store' })
     .then(r => r.json())
@@ -668,6 +681,7 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
       cur = base.includes('happi.webp') ? 'happi.webp' : base[0];
       sp.hidden = false;
       setImg(cur);
+      preload(base);
     })
     .catch(() => { sp.hidden = true; });
   function isEmpty(){
