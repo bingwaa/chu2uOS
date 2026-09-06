@@ -665,7 +665,7 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
       const ext = /\.(png|jpe?g|gif|webp|svg)$/i;
       base = (manifest.top || []).filter(f => ext.test(f));
       if(!base.length){ sp.hidden = true; return; }
-      cur = base.includes('happi.png') ? 'happi.png' : base[0];
+      cur = base.includes('happi.webp') ? 'happi.webp' : base[0];
       sp.hidden = false;
       setImg(cur);
     })
