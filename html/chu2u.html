@@ -1,0 +1,61 @@
+<style>
+  .prof{font-family:inherit;}
+  .prof-head{display:flex;align-items:baseline;gap:10px;margin:4px 0 16px;}
+  .prof-head__icon{font-size:26px;transform:translateY(3px);}
+  .prof-head__en{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:.5px;}
+  .prof-head__cn{font-size:15px;font-weight:700;color:var(--ink-soft);}
+  .prof-body{display:flex;gap:24px;align-items:flex-start;}
+  .prof-text{flex:1 1 auto;min-width:0;max-width:720px;}
+  .prof-name{font-size:26px;font-weight:800;color:var(--ink);margin:0 0 4px;}
+  .prof-name small{display:block;font-size:12px;color:var(--ink-soft);font-weight:600;letter-spacing:3px;margin-top:2px;text-transform:uppercase;}
+  .prof-main{font-size:13.5px;line-height:1.9;color:var(--ink);background:rgba(255,255,255,.55);border:1px solid rgba(143,213,163,.5);border-radius:12px;padding:14px 16px;margin:0 0 14px;white-space:nowrap;}
+  .prof-data{display:flex;flex-direction:column;gap:8px;}
+  .prof-data dl{display:flex;align-items:baseline;gap:12px;margin:0;padding:8px 12px;background:rgba(255,255,255,.5);border:1px solid rgba(143,213,163,.4);border-radius:10px;font-size:13px;}
+  .prof-data dt{flex:none;width:72px;color:var(--ink-soft);font-weight:700;font-size:12px;}
+  .prof-data dd{margin:0;color:var(--ink);}
+  .prof-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:9px 16px;border-radius:10px;border:1px solid rgba(143,213,163,.8);background:linear-gradient(145deg,#d4da7b,#abb332);color:#1f2410;font-size:13px;font-weight:700;text-decoration:none;cursor:pointer;box-shadow:0 4px 12px rgba(100,103,50,.2);}
+  .prof-link:hover{filter:brightness(1.05);}
+  .prof-art{flex:0 0 360px;display:flex;flex-direction:column;gap:10px;}
+  .slider{position:relative;width:100%;height:460px;border-radius:14px;border:1px solid var(--line);background:#eef9ff;overflow:hidden;}
+  .slider input{position:absolute;opacity:0;pointer-events:none;}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .45s ease;pointer-events:none;}
+  .slide img{width:100%;height:100%;object-fit:contain;display:block;}
+  #prof1:checked ~ .s1,#prof2:checked ~ .s2{opacity:1;pointer-events:auto;}
+  .slider-thumbs{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);display:flex;gap:10px;}
+  .slider-thumbs label{width:54px;height:54px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.55;transition:opacity .2s,border-color .2s;background:#daf0fb;}
+  .slider-thumbs label img{width:100%;height:100%;object-fit:cover;display:block;}
+  #prof1:checked ~ .slider-thumbs label[for=prof1],
+  #prof2:checked ~ .slider-thumbs label[for=prof2]{opacity:1;border-color:#abb332;}
+  .prof-note{text-align:center;color:var(--ink-soft);font-size:12px;}
+  @media (max-width:640px){.prof-body{flex-direction:column;}}
+</style>
+
+<div class="prof">
+  <div class="prof-body">
+    <div class="prof-text">
+      <h3 class="prof-name">灯羽啾<small>Chu2u</small></h3>
+      <p class="prof-main">羽啾！是来自地球的外星人哒！</p>
+      <div class="prof-data">
+        <dl><dt>生日</dt><dd>7月20日</dd></dl>
+        <dl><dt>身高</dt><dd>152cm</dd></dl>
+        <dl><dt>MBTI</dt><dd>ISFP</dd></dl>
+        <dl><dt>粉丝牌</dt><dd>宇宙猫</dd></dl>
+        <dl><dt>兴趣</dt><dd>占卜</dd></dl>
+        <dl><dt>应援色</dt><dd>#d4da7b</dd></dl>
+      </div>
+      <a class="prof-link" href="https://space.bilibili.com/2138961136" target="_blank" rel="noopener">前往主播B站个人空间 ↗</a>
+    </div>
+    <div class="prof-art">
+      <div class="slider">
+        <input type="radio" id="prof1" name="prof" checked>
+        <input type="radio" id="prof2" name="prof">
+        <div class="slide s1"><img loading="lazy" src="/assets/imgs/kyaradz/chu2u_norm.png" alt="chu2u 通常"></div>
+        <div class="slide s2"><img loading="lazy" src="/assets/imgs/kyaradz/chu2u_heya.png" alt="chu2u へや"></div>
+        <div class="slider-thumbs">
+          <label for="prof1"><img loading="lazy" src="/assets/imgs/kyaradz/chu2u_norm.png" alt="通常"></label>
+          <label for="prof2"><img loading="lazy" src="/assets/imgs/kyaradz/chu2u_heya.png" alt="へや"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+# 运行时聊天数据，由 server.js 生成，不入库
+chat-store.json
+node_modules/

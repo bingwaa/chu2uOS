@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>chu2uOS</title>
+<link rel="icon" type="image/png" href="assets/imgs/icon/uchuuneko_32.png">
+<link rel="stylesheet" href="assets/css/style.css?v=47">
+<style>
+.sched{display:flex;flex-direction:column;height:100%;padding:14px;box-sizing:border-box;}
+.sched-stage{flex:1;display:grid;place-items:center;min-height:120px;}
+.sched-stage img{max-width:100%;max-height:100%;object-fit:contain;}
+.sched-hint{color:var(--ink-soft);font-size:13px;}
+</style>
+</head>
+<body>
+
+<svg class="galaxy" viewBox="0 0 1280 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#04050e"/>
+      <stop offset=".5" stop-color="#080a17"/>
+      <stop offset="1" stop-color="#02030a"/>
+    </linearGradient>
+    <filter id="hoop" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="arm" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    <radialGradient id="core"><stop offset="0" stop-color="#fff6de" stop-opacity=".9"/><stop offset=".4" stop-color="#ffdca0" stop-opacity=".55"/><stop offset="1" stop-color="#ffdca0" stop-opacity="0"/></radialGradient>
+    <radialGradient id="nebW"><stop offset="0" stop-color="#fff0d6" stop-opacity=".5"/><stop offset="1" stop-color="#fff0d6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="nebO"><stop offset="0" stop-color="#e0a868" stop-opacity=".4"/><stop offset="1" stop-color="#e0a868" stop-opacity="0"/></radialGradient>
+    <radialGradient id="nebS"><stop offset="0" stop-color="#c8b8e0" stop-opacity=".35"/><stop offset="1" stop-color="#c8b8e0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1280" height="760" fill="url(#sky)"/>
+  <g transform="rotate(-6 640 380)">
+    <path d="M-120 340 C 200 302, 520 300, 940 362 S 1360 380, 1500 346 L1500 404 C1180 438, 760 424, 400 396 S0 402 -120 406 Z" fill="#eef2ff" opacity=".18" filter="url(#hoop)"/>
+    <ellipse cx="140" cy="338" rx="230" ry="96" fill="url(#nebW)" filter="url(#hoop)"/>
+    <ellipse cx="420" cy="320" rx="250" ry="108" fill="url(#nebO)" filter="url(#hoop)"/>
+    <ellipse cx="680" cy="334" rx="270" ry="118" fill="url(#nebW)" filter="url(#hoop)"/>
+    <ellipse cx="920" cy="352" rx="250" ry="104" fill="url(#nebO)" filter="url(#hoop)"/>
+    <ellipse cx="1140" cy="364" rx="210" ry="84" fill="url(#nebS)" filter="url(#hoop)"/>
+    <ellipse cx="640" cy="330" rx="320" ry="120" fill="url(#core)" opacity=".55" filter="url(#hoop)"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="150" cy="120" r="1" opacity=".6"/><circle cx="292" cy="360" r="1.2" opacity=".7"/>
+    <circle cx="430" cy="300" r="1" opacity=".55"/><circle cx="620" cy="335" r="1.4" opacity=".8"/>
+    <circle cx="805" cy="380" r="1.1" opacity=".7"/><circle cx="1010" cy="300" r="1.3" opacity=".7"/>
+    <circle cx="1160" cy="345" r=".9" opacity=".6"/><circle cx="1240" cy="120" r=".8" opacity=".5"/>
+    <circle cx="330" cy="470" r="1" opacity=".55"/><circle cx="740" cy="420" r="1.2" opacity=".65"/>
+    <circle cx="990" cy="470" r="1" opacity=".55"/><circle cx="880" cy="120" r="1.1" opacity=".6"/>
+    <circle cx="210" cy="220" r=".9" opacity=".5"/><circle cx="560" cy="200" r="1" opacity=".55"/>
+    <circle cx="1120" cy="470" r="1.1" opacity=".6"/><circle cx="1290" cy="300" r=".8" opacity=".5"/>
+    <circle cx="520" cy="540" r=".9" opacity=".5"/><circle cx="60" cy="300" r=".9" opacity=".5"/>
+    <circle cx="690" cy="600" r="1" opacity=".5"/><circle cx="1220" cy="610" r="1.2" opacity=".55"/>
+    <circle cx="120" cy="70" r="1" opacity=".55"/><circle cx="410" cy="90" r="1.2" opacity=".5"/>
+    <circle cx="760" cy="70" r="1" opacity=".55"/><circle cx="1080" cy="90" r="1" opacity=".6"/>
+    <circle cx="300" cy="160" r=".9" opacity=".5"/><circle cx="1240" cy="200" r="1" opacity=".5"/>
+    <circle cx="90" cy="520" r="1.1" opacity=".55"/><circle cx="1180" cy="560" r="1" opacity=".5"/>
+    <circle cx="420" cy="620" r="1.2" opacity=".5"/><circle cx="940" cy="650" r=".9" opacity=".5"/>
+    <circle cx="180" cy="260" r="1" opacity=".6"/><circle cx="520" cy="90" r=".9" opacity=".5"/>
+    <circle cx="680" cy="190" r="1.1" opacity=".6"/><circle cx="980" cy="160" r=".9" opacity=".5"/>
+    <circle cx="1180" cy="260" r="1" opacity=".55"/><circle cx="60" cy="450" r="1" opacity=".5"/>
+    <circle cx="240" cy="580" r="1.1" opacity=".55"/><circle cx="600" cy="520" r=".9" opacity=".5"/>
+    <circle cx="820" cy="600" r="1" opacity=".5"/><circle cx="1360" cy="430" r="1" opacity=".5"/>
+    <circle cx="1300" cy="120" r=".9" opacity=".5"/><circle cx="40" cy="200" r=".8" opacity=".5"/>
+    <circle cx="350" cy="250" r="1" opacity=".6"/><circle cx="700" cy="300" r="1" opacity=".6"/>
+    <circle cx="1050" cy="350" r="1" opacity=".6"/><circle cx="1280" cy="520" r=".9" opacity=".5"/>
+    <circle cx="490" cy="640" r=".9" opacity=".5"/><circle cx="1120" cy="660" r="1" opacity=".5"/>
+    <circle cx="90" cy="620" r="1" opacity=".5"/><circle cx="760" cy="650" r="1" opacity=".5"/>
+  </g>
+</svg>
+<div id="solarsystem">
+  <div class="sun"></div>
+  <div class="orbit orbit-1"></div>
+  <div class="orbit orbit-2"></div>
+  <div class="orbit orbit-3"></div>
+  <div class="orbit orbit-4"></div>
+  <div class="orbit orbit-5"></div>
+  <div class="orbit orbit-6"></div>
+  <div class="orbit orbit-7"></div>
+  <div class="orbit orbit-8"></div>
+  <div class="belt"></div>
+  <div class="planet planet-1"><span class="plabel">Mercury</span></div>
+  <div class="planet planet-2"><span class="plabel">Venus</span></div>
+  <div class="planet planet-3"><div class="moon"><span class="mlabel">Moon</span></div><span class="plabel">Earth</span></div>
+  <div class="planet planet-4"><span class="plabel">Mars</span></div>
+  <div class="planet planet-5"><span class="plabel">Jupiter</span></div>
+  <div class="planet planet-6"><span class="plabel">Saturn</span><div class="ring"></div></div>
+  <div class="planet planet-7"><span class="plabel">Uranus</span></div>
+  <div class="planet planet-8"><span class="plabel">Neptune</span></div>
+</div>
+
+<div id="menubar">
+  <div class="left">
+    <span class="tile logoimg"><img src="assets/imgs/icon/uchuuneko_64.png" alt=""></span>
+    <span class="tile appName" id="appName">chu2uOS<span class="bar-pop" id="powerPop">关机</span></span>
+    <span class="tile" id="fileMenu">文件<span class="bar-pop file-menu"><span class="menu-item" data-act="settingimg">设定图</span><span class="menu-item" data-act="song">歌回记录</span><span class="menu-item" data-act="game">游戏回记录</span><span class="menu-item" data-act="chirp">啾言集</span><span class="menu-item" data-act="week">周表存档</span><span class="menu-item" data-act="gift">舰礼记录</span></span></span>
+    <span class="tile" id="scheduleMenu" data-img="https://i0.hdslb.com/bfs/new_dyn/ad7af38817eacf5dfd017735aecf158b2138961136.png">日程</span>
+    <span class="tile" id="aboutMenu">关于<span class="bar-pop file-menu"><span class="menu-item" data-act="streamer">主播信息</span><span class="menu-item" data-act="author">本站信息</span></span></span>
+  </div>
+  <div class="right">
+    <span class="tile" id="batt" title="电池"><svg width="24" height="16" viewBox="0 0 24 16"><rect x=".8" y="2.5" width="19" height="11" rx="2.5" fill="none" stroke="#d4da7b" stroke-width="1.2"/><rect x="2.8" y="4.5" width="11.4" height="7" rx="1" fill="#d4da7b"/><rect x="21" y="5" width="2.2" height="6" rx="1" fill="#d4da7b"/></svg><span class="bar-pop">720‰</span></span>
+    <span class="tile" id="live" title="直播状态"><span class="live-dot unknown"></span><span id="liveTxt">检测中</span><span class="bar-pop" id="livePop">进入直播间</span></span>
+    <span class="tile" id="clock"></span>
+  </div>
+</div>
+
+<div id="windows"></div>
+
+<div id="dock"></div>
+
+<div id="splash" hidden>
+  <img id="splashImg" alt="">
+</div>
+
+<div class="toast" id="toast">别走好吗</div>
+
+<script src="assets/js/app.js?v=61"></script>
+</body>
+</html>
