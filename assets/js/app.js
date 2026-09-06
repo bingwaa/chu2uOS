@@ -150,6 +150,7 @@ function initChat(el){
   function setRemain(n){ if(remain && typeof n === 'number') remain.textContent = n; }
   function refresh(){
     fetch('/api/chat/msgs', { cache:'no-store' }).then(r => r.json()).then(j => {
+      if(j && j.notice) notice(j.notice);
       const msgs = j.messages || [];
       log.innerHTML = msgs.map(m => `<div class="msg"><b>${esc(m.nick)}</b> <i>${fmtTs(m.ts)}</i><br>${esc(m.text)}</div>`).join('') || '<div class="nmsg">暂无消息</div>';
       log.scrollTop = log.scrollHeight;
@@ -162,7 +163,7 @@ function initChat(el){
       method:'POST', headers:{'Content-Type':'application/json'}, cache:'no-store',
       body: JSON.stringify({ text: text.value.trim() }),
     }).then(r => r.json().then(j => ({ s: r.status, j })))
-      .then(({ s, j }) => { if(s === 200){ text.value = ''; setRemain(j.left); refresh(); } else notice((j && j.msg) || '发送失败'); })
+      .then(({ s, j }) => { if(s === 200 && j && j.ok){ text.value = ''; setRemain(j.left); refresh(); } else notice((j && j.msg) || '发送失败'); })
       .catch(() => notice('网络错误，需通过 node assets/js/server.js 访问'));
   }
   send.addEventListener('click', sendMsg);
@@ -174,7 +175,6 @@ function initFinder(el, start){
   const pathEl = el.querySelector('#finderPath');
   const grid = el.querySelector('#finderGrid');
   if(!pathEl || !grid) return;
-  const API = '/api/imgs';
   const BASE = 'assets/imgs';
   let segs = typeof start === 'string' && start ? start.split('/') : [];
   function cur(){ return segs.join('/'); }
@@ -185,13 +185,16 @@ function initFinder(el, start){
     pathEl.innerHTML = h;
   }
   function load(){
-    fetch(API + '?path=' + encodeURIComponent(cur()), { cache:'no-store' })
+    fetch('assets/imgs.json', { cache:'no-store' })
       .then(r => r.json())
-      .then(j => {
+      .then(manifest => {
         renderPath();
+        const cur = segs.join('/');
+        const dirs = cur ? [] : Object.keys(manifest).filter(d => d !== 'icon');
+        const files = cur ? (manifest[cur] || []) : [];
         let h = '';
-        (j.dirs || []).filter(d => d !== 'icon').forEach(d => h += `<div class="tile folder" data-dir="${esc(d)}"><span class="fic">📁</span><span class="fname">${esc(d)}</span></div>`);
-        (j.files || []).forEach(f => h += `<div class="tile file" data-file="${esc(f)}"><img src="${esc(srcOf(f))}" alt=""><span class="fname">${esc(f)}</span></div>`);
+        dirs.forEach(d => h += `<div class="tile folder" data-dir="${esc(d)}"><span class="fic">📁</span><span class="fname">${esc(d)}</span></div>`);
+        files.forEach(f => h += `<div class="tile file" data-file="${esc(f)}"><img src="${esc(srcOf(f))}" alt=""><span class="fname">${esc(f)}</span></div>`);
         grid.innerHTML = h || '<div class="fempty">空目录</div>';
       })
       .catch(() => { grid.innerHTML = '<div class="fempty">加载失败</div>'; });
@@ -656,11 +659,11 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
     img.src = 'assets/imgs/top/' + name;
     requestAnimationFrame(() => img.classList.add('show'));
   }
-  fetch('/api/imgs?path=top', { cache:'no-store' })
+  fetch('assets/imgs.json', { cache:'no-store' })
     .then(r => r.json())
-    .then(j => {
+    .then(manifest => {
       const ext = /\.(png|jpe?g|gif|webp|svg)$/i;
-      base = (j.files || []).filter(f => ext.test(f));
+      base = (manifest.top || []).filter(f => ext.test(f));
       if(!base.length){ sp.hidden = true; return; }
       cur = base.includes('happi.png') ? 'happi.png' : base[0];
       sp.hidden = false;
@@ -695,14 +698,7 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
   el.addEventListener('click', e => { e.stopPropagation(); el.classList.toggle('open'); });
   pop.addEventListener('click', e => { e.stopPropagation(); window.open('https://live.bilibili.com/1727074031', '_blank'); });
   document.addEventListener('click', () => el.classList.remove('open'));
-  const ROOM = 'https://api.live.bilibili.com/room/v1/Room/get_info?room_id=1727074031';
-  const enc = encodeURIComponent(ROOM);
-  const SOURCES = [
-    '/api/live',
-    'https://api.allorigins.win/raw?url=' + enc,
-    'https://corsproxy.io/?url=' + enc,
-    'https://api.codetabs.com/v1/proxy/?quest=' + enc,
-  ];
+  const SOURCES = ['/api/live'];
   let last = null;
   function render(kind){
     el.classList.remove('live','off','unknown');
