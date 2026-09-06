@@ -699,7 +699,8 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
     for(const r of openWindows.values()) if(!r.minimized) return false;
     return true;
   }
-  sp.addEventListener('click', () => {
+  sp.addEventListener('click', e => {
+    e.preventDefault();
     if(!isEmpty()) return;
     if(base.length < 2) return;
     const pool = base.filter(f => f !== cur);
