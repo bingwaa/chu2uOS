@@ -285,3 +285,18 @@
   }
   #splash img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;opacity:0;transition:opacity .35s ease;}
   #splash img.show{opacity:1;}
+
+  @media (max-width:600px){
+    #menubar{height:calc(var(--menu-h) + env(safe-area-inset-top));padding:env(safe-area-inset-top) 8px 0;font-size:12px;}
+    #menubar .left{gap:8px;}
+    #menubar .right{gap:6px;}
+    #menubar .tile{padding:3px 5px;gap:4px;}
+    #liveTxt{font-size:11px;}
+    #clock{font-size:11px;}
+    #dock{bottom:calc(10px + env(safe-area-inset-bottom));max-width:calc(100vw - 12px);gap:6px;padding:5px 10px;}
+    #dock .app{width:40px;height:40px;font-size:21px;}
+    .window{min-width:0;min-height:0;}
+    .chat-input button{padding:9px 14px;}
+    .chat-input input{padding:9px;}
+    .finder-grid .tile{padding:10px 8px;}
+  }

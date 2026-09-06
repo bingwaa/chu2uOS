@@ -47,13 +47,18 @@ function createWindow(appKey, opts = {}){
     <div class="resizer"></div>`;
 
   const vw = window.innerWidth, vh = window.innerHeight;
-  const dw = Math.round(vw * 0.70), dh = Math.round(vh * 0.70);
-  const W = opts.x ?? Math.max(16, Math.round((vw - dw) / 2) - 24 * openWindows.size);
-  const H = opts.y ?? Math.max(44, Math.round((vh - dh) / 2) + 22 * openWindows.size);
+  const ratio = vw < 600 ? 0.92 : 0.70;
+  const dw = Math.round(vw * ratio), dh = Math.round(vh * ratio);
+  const W = opts.x ?? (vw < 600
+    ? Math.max(8, Math.round((vw - dw) / 2))
+    : Math.max(16, Math.round((vw - dw) / 2) - 24 * openWindows.size));
+  const H = opts.y ?? (vw < 600
+    ? Math.max(8, Math.round((vh - dh) / 2))
+    : Math.max(44, Math.round((vh - dh) / 2) + 22 * openWindows.size));
   el.style.left = W + 'px';
   el.style.top = H + 'px';
-  el.style.width = (opts.w || dw) + 'px';
-  el.style.height = (opts.h || dh) + 'px';
+  el.style.width = Math.min((opts.w || dw), vw - 8) + 'px';
+  el.style.height = Math.min((opts.h || dh), vh - 8) + 'px';
   el.style.zIndex = ++zTop;
 
   windowsRoot.appendChild(el);
@@ -287,8 +292,8 @@ function makeDraggable(el){
   });
   bar.addEventListener('pointermove', e => {
     if(!dragging) return;
-    const nx = Math.min(window.innerWidth - 40, Math.max(-el.offsetWidth + 60, sx0 + e.clientX - sx));
-    const ny = Math.min(window.innerHeight - 30,  Math.max(0, sy0 + e.clientY - sy));
+    const nx = Math.min(window.innerWidth - el.offsetWidth - 8, Math.max(8, sx0 + e.clientX - sx));
+    const ny = Math.min(window.innerHeight - el.offsetHeight - 8, Math.max(8, sy0 + e.clientY - sy));
     el.style.left = nx + 'px';
     el.style.top = ny + 'px';
   });
@@ -305,8 +310,8 @@ function makeResizable(el){
   });
   rz.addEventListener('pointermove', e => {
     if(!dragging) return;
-    el.style.width = Math.max(300, w + e.clientX - sx) + 'px';
-    el.style.height = Math.max(180, h + e.clientY - sy) + 'px';
+    el.style.width = Math.max(300, Math.min(window.innerWidth - 8, w + e.clientX - sx)) + 'px';
+    el.style.height = Math.max(180, Math.min(window.innerHeight - 8, h + e.clientY - sy)) + 'px';
   });
   rz.addEventListener('pointerup', () => dragging=false);
 }
