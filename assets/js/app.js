@@ -12,7 +12,7 @@ const APPS = {
 
 const TABLE_DATA = {
   gift: [
-    { date: '8月', text: '舰长礼物：动态壁纸 + 电台音声\n提督礼物：舰长礼物 + To签色纸' },
+    { date: '26年8月', text: '舰长礼物：动态壁纸 + 电台音声\n提督礼物：舰长礼物 + To签色纸' },
   ],
 };
 
@@ -189,7 +189,7 @@ function initTable(el, dataKey){
   const empty = el.querySelector('.tbl-empty');
   if(!tbody) return;
   const rows = TABLE_DATA[dataKey] || [];
-  tbody.innerHTML = rows.map(r => `<tr><td>${esc(r.date)}</td><td>${esc(r.text)}</td></tr>`).join('');
+  tbody.innerHTML = rows.map(r => `<tr><td>${esc(r.date)}</td><td>${r.text.split('\n').map(esc).join('<br>')}</td></tr>`).join('');
   if(empty) empty.hidden = rows.length > 0;
 }
 
