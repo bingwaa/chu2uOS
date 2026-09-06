@@ -671,12 +671,11 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
   const sp = document.getElementById('splash');
   if(!sp) return;
   const img = document.getElementById('splashImg');
-  const FADE = 350;
   let base = [];
   let cur = '';
   function setImg(name){
     img.src = 'assets/imgs/top/' + name;
-    requestAnimationFrame(() => img.classList.add('show'));
+    if(!img.classList.contains('show')) requestAnimationFrame(() => img.classList.add('show'));
   }
   function preload(files){
     files.forEach(name => { const im = new Image(); im.src = 'assets/imgs/top/' + name; });
@@ -704,12 +703,12 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
     if(!isEmpty()) return;
     if(base.length < 2) return;
     const pool = base.filter(f => f !== cur);
-    img.classList.remove('show');
-    clearTimeout(sp._t);
-    sp._t = setTimeout(() => {
-      cur = pool[Math.floor(Math.random() * pool.length)];
-      setImg(cur);
-    }, FADE);
+    const next = pool[Math.floor(Math.random() * pool.length)];
+    if(next === cur) return;
+    const im = new Image();
+    im.onload = () => { cur = next; img.src = 'assets/imgs/top/' + next; };
+    im.onerror = () => {};
+    im.src = 'assets/imgs/top/' + next;
   });
 })();
 
