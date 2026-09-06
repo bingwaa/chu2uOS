@@ -600,7 +600,10 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
   const baseDays = (load - J2000) / 86400000;
   const SPEED = 500000;
 
-  function step(){
+  const FRAME = 100; // 限流到 ~10fps
+  let visible = true;
+  let last = 0;
+  function update(){
     const elapsed = reduced ? 0 : (Date.now() - load) / 86400000 * SPEED;
     planets.forEach(p => {
       const lam = (p.L0 + 360 * ((baseDays + elapsed) / p.per)) % 360;
@@ -615,9 +618,20 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
       moon.style.transform =
         `translate(${cx + 26 * Math.cos(angM)}px, ${cy + 8 * Math.sin(angM)}px) translate(-50%,-50%)`;
     }
-    if(!reduced) requestAnimationFrame(step);
   }
-  requestAnimationFrame(step);
+  function step(ts){
+    if(!visible) return;
+    requestAnimationFrame(step);
+    if(ts - last < FRAME) return;
+    last = ts;
+    update();
+  }
+  document.addEventListener('visibilitychange', () => {
+    visible = !document.hidden;
+    if(visible){ last = 0; requestAnimationFrame(step); }
+  });
+  if(reduced) update();
+  else requestAnimationFrame(step);
 
   const belt = document.querySelector('.belt');
   if(belt){
