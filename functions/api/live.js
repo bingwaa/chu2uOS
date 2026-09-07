@@ -1,5 +1,4 @@
 const ROOM_ID = 1727074031;
-// 优先走第三方聚合接口（bilibili 对 Cloudflare 机房 IPv4 风控返回 412，聚合服务不受影响）
 const PARTNER = `https://uapis.cn/api/v1/social/bilibili/liveroom?room_id=${ROOM_ID}`;
 const LIVE = `https://api.live.bilibili.com/room/v1/Room/get_info?room_id=${ROOM_ID}`;
 const HEADERS = { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://live.bilibili.com/' };

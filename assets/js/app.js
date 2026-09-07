@@ -102,7 +102,7 @@ function renderContent(appKey, opts){
       <div class="about">
         <div class="logo">🐸</div>
         <h2>chu2u OS</h2>
-        <p>薄荷绿电路风桌面演示</p>
+        <p>sample</p>
       </div>`;
     case 'notes': return `
       <div class="chat">
