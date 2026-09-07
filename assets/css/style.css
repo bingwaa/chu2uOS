@@ -161,7 +161,7 @@
 
   #dock{
     position:fixed;left:50%;bottom:10px;transform:translateX(-50%);
-    height:var(--dock-h);z-index:9200;
+    height:var(--dock-h);z-index:90;
     display:flex;align-items:center;gap:8px;padding:6px 12px;
     background:rgba(212,218,123,.5);
     backdrop-filter:blur(16px);

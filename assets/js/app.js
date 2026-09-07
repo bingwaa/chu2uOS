@@ -401,9 +401,11 @@ function maximizeWindow(el){
   if(!rec) return;
   if(!rec.prev.hasOwnProperty('w')){
     rec.prev = { x:el.style.left, y:el.style.top, w:el.style.width, h:el.style.height };
-    el.style.left='18px'; el.style.top=(document.getElementById('menubar').offsetHeight+6)+'px';
-    el.style.width = (window.innerWidth-36)+'px';
-    el.style.height = (window.innerHeight - document.getElementById('dock').offsetHeight - 28)+'px';
+    const mh = document.getElementById('menubar').offsetHeight;
+    el.style.left = '0';
+    el.style.top = mh + 'px';
+    el.style.width = window.innerWidth + 'px';
+    el.style.height = (window.innerHeight - mh) + 'px';
     el.dataset.green='fks';
   } else {
     el.style.left=rec.prev.x; el.style.top=rec.prev.y;
