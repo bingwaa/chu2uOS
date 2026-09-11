@@ -1,5 +1,4 @@
 #!/bin/sh
-# 提交前依据 assets/imgs 的实际文件重建 assets/imgs.json，避免新增图片漏登记。
 command -v node >/dev/null 2>&1 || {
   echo "pre-commit: 未找到 node，跳过 imgs.json 重建" >&2
   exit 0

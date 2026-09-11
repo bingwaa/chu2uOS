@@ -1,7 +1,6 @@
 export const DAY_LIMIT = 5;
 export const KEY = 'chat';
 
-// 按"当地 4 点清空"计算滚动日（面向中文受众，UTC+8；Worker 运行时为 UTC）
 export function dayKey(now = Date.now()) {
   const d = new Date(now + 4 * 3600 * 1000);
   const p = n => String(n).padStart(2, '0');
@@ -19,7 +18,6 @@ export async function nickOf(ip) {
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 8);
 }
 
-// 读取并滚动日；返回 chat 对象。KV 未绑定返回 null。
 export async function readChat(env) {
   if (!env || !env.KV) return null;
   const now = dayKey();

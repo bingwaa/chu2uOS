@@ -14,8 +14,8 @@ const TABLE_DATA = {
   gift: [
     { date: '26年8月', text: '舰长礼物: 动态壁纸 + 电台音声\n提督礼物: 舰长礼物 + To签色纸' },
     { date: '26年9月', text: '舰长礼物: 鼠标指针 + 当月音声\n提督礼物: 舰长礼物 + 小啾Pngtuber' },
-    { date: '26年9月-11月', text: '三个月均为大航海, 将额外赠送「季节挂件」秋天到咯!',
-      link: { label: '「季节挂件」秋天到咯!', img: 'armada/season1.webp' } },
+    { date: '26年9月-11月', text: '三个月均为大航海, 将额外赠送「季节挂件」秋天到咯！',
+      link: { label: '「季节挂件」秋天到咯！', img: 'armada/season1.webp' } },
   ],
 };
 
@@ -194,7 +194,7 @@ function initTable(el, dataKey){
   const rows = TABLE_DATA[dataKey] || [];
   tbody.innerHTML = rows.map(r => {
     let cell = r.text.split('\n').map(esc).join('<br>');
-    if(r.link){   // 把指定文字替换为可点击元素，点击后由图片查看器打开
+    if(r.link){
       const label = esc(r.link.label);
       cell = cell.replace(label, () => `<a class="imglink" data-img="${esc(r.link.img)}" title="查看图片">${label}</a>`);
     }
@@ -642,7 +642,7 @@ function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','
   const baseDays = (load - J2000) / 86400000;
   const SPEED = 500000;
 
-  const FRAME = 100; // 限流到 ~10fps
+  const FRAME = 100;
   let visible = true;
   let last = 0;
   function update(){

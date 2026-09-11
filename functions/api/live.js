@@ -18,6 +18,5 @@ async function fetchLive(url) {
 export async function onRequestGet() {
   const j = (await fetchLive(PARTNER)) || (await fetchLive(LIVE));
   if (j) return Response.json(j, { headers: { 'Cache-Control': 'no-store' } });
-  // 均失败：回退为 200 合法 JSON，避免前端控制台报错；前端显示"检测中"
   return Response.json({ code: -1, msg: '直播状态暂不可用' }, { headers: { 'Cache-Control': 'no-store' } });
 }

@@ -1,5 +1,3 @@
-// 扫描 assets/imgs 下的子目录，重建 assets/imgs.json 清单。
-// 访达（Finder）与开屏图依赖该清单，新增图片后必须重建。
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -26,7 +24,6 @@ if (existsSync(OUT)) {
   try { prev = JSON.parse(readFileSync(OUT, 'utf8')); } catch { prev = {}; }
 }
 
-// 已登记的目录保持原有顺序，新目录按自然序追加到末尾。
 const order = [
   ...Object.keys(prev).filter(k => dirs.includes(k)),
   ...dirs.filter(d => !(d in prev)).sort(natural)
