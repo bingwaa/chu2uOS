@@ -14,7 +14,8 @@ const TABLE_DATA = {
   gift: [
     { date: '26年8月', text: '舰长礼物: 动态壁纸 + 电台音声\n提督礼物: 舰长礼物 + To签色纸' },
     { date: '26年9月', text: '舰长礼物: 鼠标指针 + 当月音声\n提督礼物: 舰长礼物 + 小啾Pngtuber' },
-    { date: '26年9月-11月', text: '三个月均为大航海, 将额外赠送「季节挂件」秋天到咯!' },
+    { date: '26年9月-11月', text: '三个月均为大航海, 将额外赠送「季节挂件」秋天到咯!',
+      link: { label: '「季节挂件」秋天到咯!', img: 'armada/season1.webp' } },
   ],
 };
 
@@ -191,7 +192,18 @@ function initTable(el, dataKey){
   const empty = el.querySelector('.tbl-empty');
   if(!tbody) return;
   const rows = TABLE_DATA[dataKey] || [];
-  tbody.innerHTML = rows.map(r => `<tr><td>${esc(r.date)}</td><td>${r.text.split('\n').map(esc).join('<br>')}</td></tr>`).join('');
+  tbody.innerHTML = rows.map(r => {
+    let cell = r.text.split('\n').map(esc).join('<br>');
+    if(r.link){   // 把指定文字替换为可点击元素，点击后由图片查看器打开
+      const label = esc(r.link.label);
+      cell = cell.replace(label, () => `<a class="imglink" data-img="${esc(r.link.img)}" title="查看图片">${label}</a>`);
+    }
+    return `<tr><td>${esc(r.date)}</td><td>${cell}</td></tr>`;
+  }).join('');
+  tbody.addEventListener('click', e => {
+    const a = e.target.closest('.imglink');
+    if(a) openViewer(a.dataset.img);
+  });
   if(empty) empty.hidden = rows.length > 0;
 }
 

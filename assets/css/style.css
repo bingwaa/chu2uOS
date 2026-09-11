@@ -265,6 +265,8 @@
   .tbl th,.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left;color:var(--ink);}
   .tbl th{background:#daf0fb;font-weight:700;color:var(--ink-soft);}
   .tbl-empty{color:var(--ink-soft);font-size:12px;text-align:center;margin-top:12px;}
+  .tbl .imglink{color:#2b7fb8;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;}
+  .tbl .imglink:hover{color:#1c5c88;text-decoration-style:solid;}
 
   .page{padding:18px;line-height:1.7;color:var(--ink);font-size:14px;user-select:text;}
   .page h1,.page h2,.page h3{margin:.4em 0 .5em;}
