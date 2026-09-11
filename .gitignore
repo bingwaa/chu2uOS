@@ -1,3 +1,6 @@
 # 运行时聊天数据
 chat-store.json
 node_modules/
+
+# 本地工具，不参与提交
+tools/img2webp.py
