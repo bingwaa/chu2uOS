@@ -15,7 +15,7 @@ const TABLE_DATA = {
     { date: '26年8月', text: '舰长礼物: 动态壁纸 + 电台音声\n提督礼物: 舰长礼物 + To签色纸' },
     { date: '26年9月', text: '舰长礼物: 鼠标指针 + 当月音声\n提督礼物: 舰长礼物 + 小啾Pngtuber' },
     { date: '26年10月', text: '舰长礼物: 小啾输入法 + 当月音声\n提督礼物: 舰长礼物 + 小啾Pngtuber' },
-    { date: '26年11月', text: '舰长礼物: 小啾电子亲签 + 当月音声\n提督礼物: 舰长礼物 + 小啾Pngtuber' },
+    { date: '26年11月', text: '舰长礼物: 小啾电子亲签 + 当月音声\n提督礼物: 舰长礼物 + 小啾Pngtuber\n总督礼物: 以上都有 + 小啾等身抱枕' },
     { date: '26年9月-11月', text: '三个月均为大航海, 将额外赠送「季节挂件」秋天到咯！',
       link: { label: '「季节挂件」秋天到咯！', img: 'armada/season1.webp' } },
   ],
@@ -135,6 +135,7 @@ function renderContent(appKey, opts){
       </div>`;
     case 'table': return `
       <div class="tbl">
+        ${opts && opts.data === 'gift' ? '<p class="tbl-link"><a class="imglink" data-img="armada/notice1.webp" title="查看图片">关于大航海礼物</a></p>' : ''}
         <table>
           <thead><tr><th>日期</th><th>内容</th></tr></thead>
           <tbody></tbody>
@@ -202,7 +203,8 @@ function initTable(el, dataKey){
     }
     return `<tr><td>${esc(r.date)}</td><td>${cell}</td></tr>`;
   }).join('');
-  tbody.addEventListener('click', e => {
+  const tbl = el.querySelector('.tbl');
+  if(tbl) tbl.addEventListener('click', e => {
     const a = e.target.closest('.imglink');
     if(a) openViewer(a.dataset.img);
   });
